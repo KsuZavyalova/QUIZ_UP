@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>QuizUp</title>
+    <meta property="og:title" content="QuizUp" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <!-- External stylesheets -->
+    <link rel="stylesheet" href="../static/style.css" />
+    <link rel="stylesheet" href="../static/index.css" />
+  </head>
+  <body>
+    <div class="home-container">
+      <div class="home-desktop10448104">
+        <img alt="paper182" src="../static/public/external/paper182-fgj-1100h.png" class="home-paper" />
+        <img alt="Rectangle264036" src="../static/public/external/rectangle264036-mock-3000w.png" class="home-blue-back" />
+        <img src="../static/public/external/pastedimage-rrlp-200h.png" alt="image" class="home-image" />
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flashes">
+            {% for category, message in messages %}
+              <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <!-- Login Form -->
+        <form method="POST" action="{{ url_for('index') }}" class="home-login-form">
+          {{ form.hidden_tag() }} <!-- CSRF токен -->
+
+          <!-- Username Field -->
+          <div class="home-wf-input-field-login">
+            <div class="home-label-stack1">
+              <label for="username" class="home-text1">Имя пользователя</label>
+            </div>
+            {{ form.username(class_="home-text-input1") }}
+            {% for error in form.username.errors %}
+              <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+          </div>
+
+          <!-- Password Field -->
+          <div class="home-wf-input-field-password">
+            <div class="home-label-stack2">
+              <label for="password" class="home-text3">Пароль</label>
+            </div>
+            {{ form.password(class_="home-text-input2") }}
+            {% for error in form.password.errors %}
+              <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="home-wf-button-in">
+            <span class="home-text2">Войти</span>
+          </button>
+        </form>
+
+        <!-- Registration Button -->
+        <a href="{{ url_for('registration') }}" class="home-wf-button-reg">
+          <span class="home-text4">Регистрация</span>
+        </a>
+
+        <!-- Decorative Elements -->
+        <img alt="Spark371939" src="../static/public/external/spark371939-ytnc.svg" class="home-spark-up" />
+        <img alt="Spark361936" src="../static/public/external/spark361936-tmpg.svg" class="home-spark-low" />
+        <img alt="Union1929" src="../static/public/external/union1929-vtz9.svg" class="home-beautiful-frame" />
+      </div>
+    </div>
+  </body>
+</html>

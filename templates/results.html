@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Результаты - {{ poll.title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+
+    <!-- Подключение шрифтов -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;200;300;400;500;600;700;800;900&display=swap" />
+
+    <!-- Подключение стилей -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='results.css') }}" />
+</head>
+<body>
+    <div class="answeropenquestion-container">
+        <div class="answeropenquestion-desktop10448104">
+            <!-- Фоновое изображение -->
+            <img
+                alt="Background"
+                src="{{ url_for('static', filename='public/external/rectangle264036-mock-3000w.png') }}"
+                class="input-base-question-rectangle26"
+            />
+
+            <!-- Основной контейнер с результатами -->
+            <div class="answeropenquestion-wf-container1">
+                <span class="answeropenquestion-text1">QUIZUP</span>
+
+                <div class="answeropenquestion-wf-container2">
+                    <span class="answeropenquestion-text2">
+                        Результаты опроса: {{ poll.title }}
+                    </span>
+
+                    <!-- Контейнер с результатами по каждому вопросу -->
+                    <div class="results-list">
+                        {% for qid, data in results.items() %}
+                          <div class="result-item">
+                            <h3 class="question-text">{{ data.question_text }}</h3>
+
+                            {% if data.type == 'closed' %}
+                              <!-- Список всех вариантов -->
+                              <ul>
+                                {% for opt in data.options %}
+                                  <li>
+                                    <!-- Текст варианта -->
+                                    "{{ opt.text }}"
+                                    <!-- Число людей, выбравших этот вариант -->
+                                     – выбрано {{ opt.count }} раз(а)
+
+                                    <!-- Показываем «Верно» или «Неверно» -->
+                                    {% if opt.correct %}
+                                      (Верно)
+                                    {% else %}
+                                      (Неверно)
+                                    {% endif %}
+                                  </li>
+                                {% endfor %}
+                              </ul>
+
+                            {% else %}
+                              <!-- Открытый вопрос -->
+                              <ul>
+                                {% for answer, count in data.open_answers.items() %}
+                                  <li>"{{ answer }}" – {{ count }} ответ(ов)</li>
+                                {% endfor %}
+                              </ul>
+                            {% endif %}
+                          </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Кнопка возврата -->
+                    <a href="{{ url_for('page') }}" class="answeropenquestion-wf-button">
+                        <span class="answeropenquestion-text3">Завершить</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

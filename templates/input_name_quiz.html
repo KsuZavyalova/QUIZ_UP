@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="Input Name - QuizUp">
+    <meta property="twitter:card" content="summary_large_image">
+    <title>Input Name - QuizUp</title>
+
+    <!-- Стили (оставьте без изменений) -->
+    <style data-tag="reset-style-sheet">
+        html { line-height: 1.15; }
+        body { margin: 0; }
+        * { box-sizing: border-box; border-width: 0; border-style: solid; -webkit-font-smoothing: antialiased; }
+        p, li, ul, pre, div, h1, h2, h3, h4, h5, h6, figure, blockquote, figcaption { margin: 0; padding: 0; }
+        button { background-color: transparent; }
+        button, input, optgroup, select, textarea { font-family: inherit; font-size: 100%; line-height: 1.15; margin: 0; }
+        button, select { text-transform: none; }
+        button, [type="button"], [type="reset"], [type="submit"] { -webkit-appearance: button; color: inherit; }
+        button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner { border-style: none; padding: 0; }
+        button:-moz-focus, [type="button"]:-moz-focus, [type="reset"]:-moz-focus, [type="submit"]:-moz-focus { outline: 1px dotted ButtonText; }
+        a { color: inherit; text-decoration: inherit; }
+        input { padding: 2px 4px; }
+        img { display: block; }
+        html { scroll-behavior: smooth; }
+    </style>
+    <style data-tag="default-style-sheet">
+        html { font-family: Inter; font-size: 16px; }
+        body { font-weight: 400; font-style: normal; text-decoration: none; text-transform: none; letter-spacing: normal; line-height: 1.15; color: var(--dl-color-theme-neutral-dark); background: var(--dl-color-theme-neutral-light); fill: var(--dl-color-theme-neutral-dark); }
+    </style>
+
+    <!-- Подключение шрифтов (оставьте без изменений) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+
+    <!-- Подключение стилей (оставьте без изменений) -->
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/input_name_quiz.css">
+</head>
+<body>
+    <div class="input-open-question-container">
+        <div class="input-open-question-desktop10448104">
+            <!-- Фон (оставьте без изменений) -->
+            <img
+                alt="Rectangle264036"
+                src="../static/public/external/rectangle264036-mock-3000w.png"
+                class="input-open-question-rectangle26"
+            />
+
+            <!-- Верхняя панель (оставьте без изменений) -->
+            <div class="input-open-question-wf-title-bar">
+                <span class="input-open-question-text3">QUIZUP</span>
+            </div>
+
+            <!-- Кнопки управления (удалена кнопка "Далее", оставлена "Завершить") -->
+            <div class="input-base-question-buttons-top">
+                    <button type="submit" class="input-base-question-wf-button-start" id="finishButton">
+                        <span class="input-base-question-text1">Создать</span>
+                    </button>
+            </div>
+             <!--  Форма -->
+            <form id="pollForm" action="{{ url_for('input_name_quiz') }}" method="POST">
+                <!-- Добавим CSRF-токен -->
+                {{ form.csrf_token }}
+                <div class="input-open-question-wf-text-area">
+                    <div class="input-open-question-frame-text-area-base">
+                        <div class="input-open-question-label-stack">
+                            <span class="input-open-question-text4">Название опроса</span>
+                        </div>
+                <div class="input-base-question-text-input1">
+                            <textarea class="input-open-question-textarea" name="title" placeholder="Введите название">{{ form.title.data if form.title.data }}</textarea>
+                        </div>
+                    </div>
+                    </div>
+                </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const finishButton = document.getElementById('finishButton');
+            const pollForm = document.getElementById('pollForm');
+
+            console.log("DOM is ready"); // Debug message 1
+
+            function validateForm() {
+                const textarea = document.querySelector('.input-open-question-textarea');
+                if (!textarea) {
+                    console.error("Textarea element not found");
+                    return false;
+                }
+                const questionText = textarea.value.trim();
+                if (questionText === '') {
+                    alert("Пожалуйста, введите название.");
+                    return false;
+                }
+                return true;
+            }
+
+            finishButton.addEventListener('click', function(event) {
+                console.log("Finish button clicked");
+                event.preventDefault(); // Предотвращаем действие по умолчанию
+
+                if (validateForm()) {
+                    console.log("Validation success, submitting form");
+                    const form = document.getElementById('pollForm');
+                    form.submit(); // Явно отправляем форму
+                } else {
+                    console.log("Validation failed");
+                }
+            });
+        });
+        </script>
+</body>
+</html>

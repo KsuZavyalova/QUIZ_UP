@@ -1,0 +1,20 @@
+<!-- templates/view_poll.html -->
+{% extends "base.html" %}
+
+{% block title %}{{ poll.question }}{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">{{ poll.question }}</h1>
+    <form method="POST">
+        {% for option in poll.options %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="option" id="option{{ option.id }}" value="{{ option.id }}" required>
+                <label class="form-check-label" for="option{{ option.id }}">
+                    {{ option.text }}
+                </label>
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary mt-3">Голосовать</button>
+        <a href="{{ url_for('root') }}" class="btn btn-secondary mt-3">Назад к Опросам</a>
+    </form>
+{% endblock %}

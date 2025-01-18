@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Registration - QuizUp</title>
+  <meta property="og:title" content="Registration - QuizUp" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta property="twitter:card" content="summary_large_image" />
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" data-tag="font" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;display=swap" data-tag="font" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" data-tag="font" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" data-tag="font" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" data-tag="font" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" data-tag="font" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" data-tag="font" />
+  <link rel="stylesheet" href="../static/style.css" />
+  <link href="../static/registration.css" rel="stylesheet" />
+
+</head>
+<body>
+<div class="registration-container">
+  <div class="registration-desktop10448104">
+    <img alt="paper182" src="../static/public/external/paper182-fgj-1100h.png" class="registration-paper"/>
+    <img alt="Rectangle261930" src="../static/public/external/rectangle261930-3qpn-2600w.png" class="registration-blue-back"/>
+    <img src="../static/public/external/pastedimage-rrlp-200h.png" alt="image" class="registration-image"/>
+    <img alt="Union1929" src="../static/public/external/union1929-vtz9.svg" class="registration-beautiful-frame"/>
+
+
+
+    <form action="{{ url_for('registration') }}" method="POST">
+        {{ form.csrf_token }}
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flashes">
+              {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+      <div class="registration-wf-input-field-login">
+        <label for="username" class="registration-label-stack1">
+          <span class="registration-text1">email</span>
+        </label>
+        <input type="text" id="username" name="username" placeholder="" class="registration-text-input1" required/>
+      </div>
+
+      <div class="registration-wf-input-field-password">
+        <label for="password" class="registration-label-stack2">
+          <span class="registration-text8">пароль</span>
+        </label>
+        <input type="password" id="password" name="password" placeholder="" class="registration-text-input2" required/>
+      </div>
+
+      <div class="registration-wf-input-field-pass-aprove">
+        <label for="confirm_password" class="registration-label-stack3">
+          <span class="registration-text9">подтвердите пароль</span>
+        </label>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="" class="registration-text-input3" required/>
+      </div>
+
+      <button type="submit" class="registration-wf-button-in">
+        <span class="registration-text2">Зарегистрироваться</span>
+      </button>
+    </form>
+
+    <a href="{{ url_for('index') }}" class="registration-wf-button-reg">
+      <span class="registration-text3">
+        <span>Уже есть аккаунт?</span>
+        <br />
+        <span>Войти</span>
+        <br />
+      </span>
+    </a>
+
+    <img alt="Spark371939" src="../static/public/external/spark371939-ytnc.svg" class="registration-spark-up"/>
+    <img alt="Spark361936" src="../static/public/external/spark361936-tmpg.svg" class="registration-spark-low"/>
+  </div>
+</div>
+</body>
+</html>

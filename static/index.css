@@ -1,0 +1,351 @@
+.home-container {
+  width: 100%;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+.home-desktop10448104 {
+  width: 100%;
+  height: 982px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  box-sizing: content-box;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 8px;
+  justify-content: center;
+  background-color: var(--dl-color-wfbase-white);
+}
+.home-paper {
+  top: 0px;
+  left: 0px;
+  width: 1600px;
+  height: 1031px;
+  position: absolute;
+}
+.home-blue-back {
+  top: -289px;
+  left: -27px;
+  width: 2576px;
+  height: 1417px;
+  position: absolute;
+}
+.home-image {
+  top: 179px;
+  left: 0px;
+  right: 0px;
+  width: 295px;
+  height: 101px;
+  margin: auto;
+  position: absolute;
+  align-self: center;
+  object-fit: cover;
+}
+.home-wf-input-field-login {
+  gap: 8px;
+  top: 468px;
+  left: 0px;
+  right: 0px;
+  width: 320px;
+  margin: auto;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: center;
+}
+.home-label-stack1 {
+  gap: 10px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.home-text1 {
+  color: rgb(249, 217, 163);
+  height: auto;
+  flex-grow: 1;
+  font-size: 24px;
+  font-style: SemiBold;
+  text-align: left;
+  font-family: "Playfair Display";
+  font-weight: 600;
+  line-height: 16px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.home-text-input1 {
+  gap: 10px;
+  width: 320px;
+  height: 48px;
+  display: flex;
+  padding: 12px;
+  position: relative;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(203, 210, 224, 1);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 6px;
+  justify-content: center;
+  background-color: var(--dl-color-wfbase-white);
+}
+.home-wf-button-in {
+  gap: 8px;
+  top: 674px;
+  left: 180px;
+  right: 0px;
+  width: 104px;
+  margin: auto;
+  display: flex;
+  padding: 16px 24px;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  align-items: center;
+  border-radius: 6px;
+  justify-content: center;
+  background-color: rgba(249, 217, 163, 1);
+}
+.home-text2 {
+  color: rgba(26, 25, 78, 1);
+  height: auto;
+  font-size: 18px;
+  font-style: Bold;
+  text-align: left;
+  font-family: Playfair Display;
+  font-weight: 700;
+  line-height: 24px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.home-wf-input-field-password {
+  gap: 8px;
+  top: 571px;
+  left: 0px;
+  right: 0px;
+  width: 320px;
+  margin: auto;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.home-label-stack2 {
+  gap: 10px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.home-text3 {
+  color: rgba(249, 217, 163, 1);
+  height: auto;
+  flex-grow: 1;
+  font-size: 24px;
+  font-style: SemiBold;
+  text-align: left;
+  font-family: Playfair Display;
+  font-weight: 600;
+  line-height: 16px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.home-text-input2 {
+  gap: 10px;
+  width: 320px;
+  height: 48px;
+  display: flex;
+  padding: 12px;
+  position: relative;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(203, 210, 224, 1);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 6px;
+  background-color: var(--dl-color-wfbase-white);
+}
+.home-wf-button-reg {
+  gap: 8px;
+  top: 674px;
+  left: 0px;
+  right: 150px;
+  width: 161px;
+  margin: auto;
+  display: flex;
+  padding: 16px 24px;
+  overflow: hidden;
+  position: absolute;
+  align-items: center;
+  border-radius: 6px;
+  justify-content: center;
+}
+.home-text4 {
+  color: rgba(249, 217, 163, 1);
+  height: auto;
+  font-size: 18px;
+  font-style: Bold;
+  text-align: left;
+  font-family: Playfair Display;
+  font-weight: 700;
+  line-height: 24px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.home-spark-up {
+  top: 362.4974670410156px;
+  left: 0px;
+  right: 495px;
+  width: 70px;
+  height: 70px;
+  margin: auto;
+  position: absolute;
+}
+.home-spark-low {
+  left: 300px;
+  right: 0px;
+  width: 50px;
+  bottom: 56px;
+  height: 50px;
+  margin: auto;
+  position: absolute;
+}
+.home-beautiful-frame {
+  top: 178px;
+  left: 0px;
+  right: 0px;
+  width: 498px;
+  height: 725px;
+  margin: auto;
+  position: absolute;
+  pointer-events: none;
+}
+@media(max-width: 1200px) {
+  .home-wf-input-field-login {
+    left: 0px;
+    right: 0px;
+    margin: auto;
+  }
+}
+@media(max-width: 991px) {
+  .home-image {
+    width: 295px;
+  }
+  .home-wf-button-in {
+    left: 180px;
+  }
+  .home-spark-up {
+    left: 0px;
+    right: 495px;
+    margin: auto;
+  }
+}
+@media(max-width: 767px) {
+  .home-image {
+    top: 179px;
+    left: 0px;
+    right: 0px;
+    width: 295px;
+    height: 101px;
+    margin: auto;
+  }
+  .home-spark-up {
+    left: 0px;
+    right: 495px;
+    margin: auto;
+  }
+}
+@media(max-width: 479px) {
+  .home-image {
+    top: 321px;
+    left: 0px;
+    right: 0px;
+    width: 227px;
+    height: 84px;
+    margin: auto;
+    position: absolute;
+    align-self: flex-start;
+    padding-top: 0px;
+  }
+  .home-wf-input-field-login {
+    left: 0px;
+    right: 0px;
+    width: auto;
+    margin: auto;
+  }
+  .home-label-stack1 {
+    align-self: center;
+  }
+  .home-text1 {
+    color: rgb(249, 217, 163);
+    font-size: 18px;
+  }
+  .home-text-input1 {
+    width: 230px;
+    align-self: center;
+  }
+  .home-wf-button-in {
+    top: 350px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height: var(--dl-size-size-xsmall);
+    margin: auto;
+  }
+  .home-text2 {
+    text-align: center;
+  }
+  .home-wf-input-field-password {
+    top: 556px;
+    left: 0px;
+  }
+  .home-label-stack2 {
+    align-self: center;
+  }
+  .home-text3 {
+    color: rgb(249, 217, 163);
+    font-size: 18px;
+  }
+  .home-text-input2 {
+    width: 230px;
+    align-self: center;
+  }
+  .home-wf-button-reg {
+    top: 700px;
+    left: 0px;
+    right: 0px;
+    height: var(--dl-size-size-xsmall);
+    margin: auto;
+    text-align: center;
+  }
+  .home-spark-up {
+    top: 412px;
+    left: 0nits;
+    right: 288px;
+    width: 30px;
+    height: 30px;
+    margin: auto;
+  }
+  .home-spark-low {
+    top: 512px;
+    left: 130px;
+    right: 0px;
+    width: 40px;
+    bottom: 0px;
+    height: 40px;
+    margin: auto;
+  }
+  .home-beautiful-frame {
+    width: 291px;
+    height: 715px;
+    pointer-events: none;
+  }
+}

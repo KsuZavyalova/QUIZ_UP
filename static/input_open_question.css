@@ -1,0 +1,275 @@
+.input-open-question-container {
+  width: 100%;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+.input-open-question-desktop10448104 {
+  gap: 10px;
+  width: 100%;
+  height: 982px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  box-sizing: content-box;
+  align-items: flex-end;
+  flex-shrink: 0;
+  border-radius: 8px;
+  justify-content: center;
+  background-color: var(--dl-color-wfbase-white);
+}
+#answer-form {
+    position: absolute;
+    top: 200px;  /* или на сколько пикселей нужно опустить блок */
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 80%;  /* или нужная ширина */
+}
+
+.input-open-question-rectangle26 {
+  top: 0px;
+  left: 0px;
+  width: 3000px;
+  height: 983px;
+  position: absolute;
+}
+.input-base-question-buttons-top {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    display: flex;
+    gap: 10px;
+}
+
+.input-base-question-wf-button-next {
+    background-color: rgba(249, 217, 163, 1);
+    color: rgb(26, 25, 78);
+    border: none;
+    border-radius: 6px;
+    padding: 16px 24px;
+    cursor: pointer;
+}
+
+.input-base-question-wf-button-start {
+    background-color: rgba(249, 217, 163, 1);
+    color: rgb(26, 25, 78);
+    border: none;
+    border-radius: 6px;
+    padding: 16px 24px;
+    cursor: pointer;
+}
+.input-open-question-text1 {
+  color: rgb(26, 25, 78);
+  height: auto;
+  font-size: 18px;
+  font-style: Bold;
+  text-align: left;
+  font-family: "Playfair Display";
+  font-weight: 700;
+  line-height: 24px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.input-open-question-wf-button-time {
+  gap: 8px;
+  top: 30px;
+  left: 170px;
+  right: 0px;
+  width: var(--dl-size-size-large);
+  display: flex;
+  padding: 16px 24px;
+  overflow: hidden;
+  position: absolute;
+  align-items: center;
+  border-radius: 6px;
+  padding-bottom: 16px 24px;
+  justify-content: center;
+}
+.input-open-question-text2 {
+  color: rgb(249, 217, 163);
+  height: auto;
+  font-size: 18px;
+  font-style: Bold;
+  text-align: left;
+  font-family: "Playfair Display";
+  font-weight: 700;
+  line-height: 24px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.input-open-question-wf-title-bar {
+  top: 36px;
+  left: 22px;
+  width: 1500px;
+  height: 92px;
+  display: flex;
+  padding: 0 0 32px;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-color: rgba(249, 217, 163, 1);
+  border-style: solid;
+  border-width: 0 0 2px;
+}
+.input-open-question-text3 {
+  color: rgb(249, 217, 163);
+  height: auto;
+  flex-grow: 1;
+  font-size: 32px;
+  align-self: stretch;
+  font-style: Bold;
+  text-align: left;
+  font-family: "Playfair Display";
+  font-weight: 700;
+  line-height: 130%;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.input-open-question-wf-text-area {
+  top: 169px;
+  left: 0px;
+  right: 0px;
+  width: auto;
+  height: 728px;
+  margin: auto;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+}
+.input-open-question-frame-text-area-base {
+  gap: 8px;
+  display: flex;
+  flex-grow: 1;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.input-open-question-label-stack {
+  gap: 8px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.input-open-question-text4 {
+  color: rgba(255, 255, 255, 1);
+  height: auto;
+  font-size: 48px;
+  font-style: SemiBold;
+  text-align: left;
+  font-family: Playfair Display;
+  font-weight: 600;
+  line-height: 40px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.input-open-question-text-input {
+  gap: 10px;
+  display: flex;
+  padding: 12px;
+  flex-grow: 1;
+  align-self: stretch;
+  align-items: flex-start;
+  border-radius: 6px;
+  flex-direction: column;
+  background-color: rgba(249, 217, 163, 1);
+}
+
+.input-base-question-text-input1 {
+  gap: 10px;
+  display: flex;
+  padding: 12px;
+  flex-grow: 1;
+  align-self: stretch;
+  align-items: flex-start;
+  border-radius: 6px;
+  flex-direction: column;
+  background-color: rgba(249, 217, 163, 1);
+  position: relative;
+}
+.input-base-question-textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  resize: none; /* Запрет изменения размера */
+  font-family: "Playfair Display", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(26, 25, 78, 1); /* Цвет текста */
+  background: transparent;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.input-open-question-textarea {
+  width: 100%;        /* Растянуть на всю ширину */
+  height: 100%;       /* Растянуть на всю высоту */
+  border: none;       /* Убрать границу */
+  outline: none;      /* Убрать обводку при фокусе */
+  resize: none;       /* Запретить изменение размера */
+  font-family: "Playfair Display", sans-serif; /* Шрифт (оставляем ваш) */
+  font-size: 18px;    /* Размер шрифта (оставляем ваш) */
+  font-weight: 400;   /* Начертание (оставляем ваш) */
+  color: rgba(26, 25, 78, 1); /* Цвет текста (оставляем ваш) */
+  background-color: transparent; /* Сделать фон прозрачным */
+  padding: 10px;      /* Внутренний отступ (оставляем ваш) */
+  box-sizing: border-box; /* Чтобы padding не увеличивал размер элемента */
+}
+@media(max-width: 1200px) {
+  .input-open-question-wf-button-start {
+    left: 750px;
+  }
+  .input-open-question-wf-title-bar {
+    width: 1200px;
+  }
+}
+@media(max-width: 991px) {
+  .input-open-question-wf-button-start {
+    left: 600px;
+    right: 0px;
+    margin: auto;
+  }
+}
+@media(max-width: 767px) {
+  .input-open-question-wf-button-start {
+    left: 360px;
+  }
+  .input-open-question-wf-title-bar {
+    width: 766px;
+  }
+}
+@media(max-width: 479px) {
+  .input-open-question-wf-button-start {
+    top: 900px;
+    left: 0px;
+    right: 0px;
+    height: var(--dl-size-size-xsmall);
+    margin: auto;
+  }
+  .input-open-question-text1 {
+    text-align: center;
+  }
+  .input-open-question-wf-button-time {
+    top: 40px;
+    right: 0px;
+    height: var(--dl-size-size-xsmall);
+    margin: auto;
+    text-align: center;
+  }
+  .input-open-question-text3 {
+    color: rgb(249, 217, 163);
+    font-size: 32px;
+    font-family: Playfair Display;
+    font-weight: 700;
+    line-height: 130%;
+    text-decoration: none;
+  }
+  .input-open-question-wf-text-area {
+    height: 708px;
+  }
+}

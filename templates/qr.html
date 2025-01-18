@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QR Code - {{ poll.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='qr.css') }}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <div class="qr-container">
+        <div class="qr-desktop10448104">
+            <img src="{{ url_for('static', filename='public/external/rectangle263832-clq-2000w.png') }}"
+                 alt="Rectangle263832"
+                 class="qr-rectangle26" />
+            <img src="{{ url_for('static', filename='public/external/paper3832-xq7g-800h.png') }}"
+                 alt="paper3832"
+                 class="qr-paper" />
+            <span class="qr-text1">ПОДКЛЮЧЕНИЕ К ОПРОСУ</span>
+            <span class="qr-text2">КОД ДЛЯ ПОДКЛЮЧЕНИЯ:</span>
+            <span class="qr-text3">{{ poll.entry_code }}</span>
+            <div class="qr-wf-divider">
+                <div class="qr-paddingtop"></div>
+                <img src="{{ url_for('static', filename='public/external/divider1i383-rvec-200h.png') }}"
+                     alt="Divider1I383"
+                     class="qr-divider1" />
+                <div class="qr-paddingbottom"></div>
+            </div>
+
+            {% if qr_code_image %}
+                <img src="data:image/png;base64,{{ qr_code_image }}" alt="QR Code" class="qr-image1">
+            {% else %}
+                <p>QR code not available.</p>
+            {% endif %}
+
+            <button class="qr-start-poll-btn" onclick="startPoll()">
+                <span class="qr-start-poll-text">Начать опрос</span>
+            </button>
+        </div>
+    </div>
+
+<script>
+    const socket = io();
+    socket.on('connect', () => console.log('Connected to server'));
+
+    function startPoll() {
+        // 1) Сброс опроса — /reset_poll/<poll_id>
+        fetch(`{{ url_for('reset_poll', poll_id=poll.id) }}`, {
+            method: 'GET',
+            credentials: 'include'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка при сбросе опроса.');
+            }
+            // 2) Запускаем опрос по коду — /start_poll/<entry_code>
+            //    (у вас должен быть соответствующий маршрут в Flask, принимающий строку!)
+            return fetch(`/start_poll/{{ poll.entry_code }}`, {
+                method: 'GET',
+                credentials: 'include'
+            });
+        })
+        .then(response => {
+            // Если маршрут /start_poll/<entry_code> вернёт редирект, обрабатываем
+            if (!response.ok) {
+                throw new Error('Ошибка при запуске опроса.');
+            }
+            // 3) Окончательно переходим к текущему вопросу ведущего
+            //    (или используем response.redirected?)
+            window.location.href = "{{ url_for('show_question', poll_id=poll.id) }}";
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert(error.message);
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="ShowOpenQuestion - QuizUp">
+    <meta property="twitter:card" content="summary_large_image">
+    <title>ShowOpenQuestion - QuizUp</title>
+
+    <!-- Стили (оставьте без изменений) -->
+    <style data-tag="reset-style-sheet">
+        html { line-height: 1.15; }
+        body { margin: 0; }
+        * { box-sizing: border-box; border-width: 0; border-style: solid; -webkit-font-smoothing: antialiased; }
+        p, li, ul, pre, div, h1, h2, h3, h4, h5, h6, figure, blockquote, figcaption { margin: 0; padding: 0; }
+        button { background-color: transparent; }
+        button, input, optgroup, select, textarea { font-family: inherit; font-size: 100%; line-height: 1.15; margin: 0; }
+        button, select { text-transform: none; }
+        button, [type="button"], [type="reset"], [type="submit"] { -webkit-appearance: button; color: inherit; }
+        button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner { border-style: none; padding: 0; }
+        button:-moz-focus, [type="button"]:-moz-focus, [type="reset"]:-moz-focus, [type="submit"]:-moz-focus { outline: 1px dotted ButtonText; }
+        a { color: inherit; text-decoration: inherit; }
+        input { padding: 2px 4px; }
+        img { display: block; }
+        html { scroll-behavior: smooth; }
+
+    </style>
+    <style data-tag="default-style-sheet">
+        html { font-family: Inter; font-size: 16px; }
+        body { font-weight: 400; font-style: normal; text-decoration: none; text-transform: none; letter-spacing: normal; line-height: 1.15; color: var(--dl-color-theme-neutral-dark); background: var(--dl-color-theme-neutral-light); fill: var(--dl-color-theme-neutral-dark); }
+    </style>
+
+    <!-- Подключение шрифтов (оставьте без изменений) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+
+    <!-- Подключение стилей (оставьте без изменений) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='input_open_question.css') }}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script> <!-- Добавлено -->
+</head>
+<body>
+    <div class="input-open-question-container">
+        <div class="input-open-question-desktop10448104">
+            <!-- Фон (оставьте без изменений) -->
+            <img
+                alt="Rectangle264036"
+                src="{{ url_for('static', filename='/public/external/rectangle264036-mock-3000w.png') }}"
+                class="input-open-question-rectangle26"
+            />
+
+            <!-- Верхняя панель (оставьте без изменений) -->
+            <div class="input-open-question-wf-title-bar">
+                <span class="input-open-question-text3">QUIZUP</span>
+            </div>
+
+            <div class="input-open-question-wf-text-area">
+                <div class="input-open-question-frame-text-area-base">
+                    <div class="input-open-question-label-stack">
+                        <span class="input-open-question-text4">Вопрос {{ poll.current_question_index + 1 }}</span> <!-- Добавлено -->
+                        <span class="input-open-question-text4">{{ question.text }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Форма для отправки данных (для участника)-->
+            {% if not is_host %}
+            <div id="answer-form">
+                <div class="input-open-question-wf-text-area">
+                    <textarea id="answer" placeholder="Введите ваш ответ" rows="4" cols="50"></textarea>
+                </div>
+                <div class="input-base-question-buttons-top">
+                    <button type="button" onclick="submitAnswer()" class="input-base-question-wf-button-next" id="submitButton">
+                        Ответить
+                    </button>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Кнопки управления (для ведущего)-->
+            {% if is_host %}
+            <form method="post" action="{{ url_for('next_question', poll_id=poll.id) }}">
+                <div class="input-base-question-buttons-top">
+                    <button type="submit" name="next" class="input-base-question-wf-button-next">
+                        Следующий вопрос
+                    </button>
+                    <button type="button" onclick="endPoll()" class="input-base-question-wf-button-start">Завершить опрос</button>
+                </div>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+
+        function submitAnswer() {
+            const answerText = document.getElementById('answer').value;
+            if (!answerText.trim()) {
+                alert('Пожалуйста, введите ответ');
+                return;
+            }
+            socket.emit('submit_answer', {
+                question_id: {{ question.id }},
+                answer: answerText
+            });
+
+            // Отключаем кнопку и поле ввода после отправки
+            document.getElementById('submitButton').disabled = true;
+            document.getElementById('answer').disabled = true;
+        }
+
+        {% if is_host %}
+        function endPoll() {
+            window.location.href = "{{ url_for('results', poll_id=poll.id) }}";
+        }
+        {% endif %}
+
+        // Обработка событий Socket.IO
+        socket.on('question_changed', function(data) {
+            if (data.poll_id === {{ poll.id }}) {
+                window.location.reload();
+            }
+        });
+
+        socket.on('poll_ended', function(data) {
+            if (data.poll_id === {{ poll.id }}) {
+                window.location.href = "{{ url_for('results', poll_id=poll.id) }}";
+            }
+        });
+    </script>
+
+
+</body>
+</html>

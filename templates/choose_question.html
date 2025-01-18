@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ChooseQuestion - QuizUp</title>
+  <meta property="og:title" content="ChooseQuestion - QuizUp">
+  <meta property="twitter:card" content="summary_large_image">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="../static/style.css">
+  <link rel="stylesheet" href="../static/choose_question.css">
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+
+  <!-- Reset and Default Styles -->
+  <style data-tag="reset-style-sheet">
+    /* Reset styles */
+    html { line-height: 1.15; }
+    body { margin: 0; }
+    * { box-sizing: border-box; border-width: 0; border-style: solid; -webkit-font-smoothing: antialiased; }
+    p, li, ul, pre, div, h1, h2, h3, h4, h5, h6, figure, blockquote, figcaption { margin: 0; padding: 0; }
+    button { background-color: transparent; }
+    button, input, optgroup, select, textarea { font-family: inherit; font-size: 100%; line-height: 1.15; margin: 0; }
+    button, select { text-transform: none; }
+    button, [type="button"], [type="reset"], [type="submit"] { -webkit-appearance: button; color: inherit; }
+    button::-moz-focus-inner, [type="button"]::-moz-focus-inner, [type="reset"]::-moz-focus-inner, [type="submit"]::-moz-focus-inner { border-style: none; padding: 0; }
+    button:-moz-focus, [type="button"]:-moz-focus, [type="reset"]:-moz-focus, [type="submit"]:-moz-focus { outline: 1px dotted ButtonText; }
+    a { color: inherit; text-decoration: inherit; }
+    input { padding: 2px 4px; }
+    img { display: block; }
+    html { scroll-behavior: smooth; }
+  </style>
+  <style data-tag="default-style-sheet">
+    /* Default styles */
+    html {
+      font-family: Inter;
+      font-size: 16px;
+    }
+    body {
+      font-weight: 400;
+      font-style: normal;
+      text-decoration: none;
+      text-transform: none;
+      letter-spacing: normal;
+      line-height: 1.15;
+      color: var(--dl-color-theme-neutral-dark);
+      background: var(--dl-color-theme-neutral-light);
+      fill: var(--dl-color-theme-neutral-dark);
+    }
+  </style>
+</head>
+<body>
+  <div class="choose-question-container">
+    <div class="choose-question-desktop10448104">
+      <img src="../static/public/external/rectangle263377-3vu-1400h.png" alt="Rectangle263377" class="choose-question-rectangle26">
+      <img src="static/public/external/paper3832-xq7g-800h.png" alt="paper3320" class="choose-question-paper">
+      <img src="../static/public/external/iconcoffee3322-2add.svg" alt="iconcoffee3322" class="choose-question-iconcoffee">
+      <img src="../static/public/external/iconedit33322-4hga.svg" alt="iconedit33322" class="choose-question-iconedit3">
+      <img src="../static/public/external/iconchecksquare3320-2ifj.svg" alt="iconchecksquare3320" class="choose-question-iconchecksquare">
+      <a href="{{ url_for('input_open_question') }}" class="choose-question-wf-button1">
+        <span class="choose-question-text1">Открытый</span>
+      </a>
+      <button class="choose-question-wf-button2">
+        <span class="choose-question-text2">Comming soon</span>
+      </button>
+      <a href="{{ url_for('input_base_question') }}" class="choose-question-wf-button3">
+        <span class="choose-question-text3">Возможность выбора</span>
+      </a>
+      <span class="choose-question-text4">СОЗДАНИЕ ВИКТОРТНЫ</span>
+      <span class="choose-question-text5">Выберите тип вопроса</span>
+      <div class="choose-question-wf-divider">
+        <div class="choose-question-paddingtop"></div>
+        <img src="../static/public/external/divider1i331-a2h-200h.png" alt="Divider1I331" class="choose-question-divider1">
+      </div>
+      <img src="static/public/external/image 1.svg" alt="image13523" class="choose-question-image1">
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Join Poll</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"></script>
+    <style>
+        #question-area { font-weight: bold; margin-bottom: 10px;}
+        #answer-area { margin-bottom: 20px;}
+    </style>
+</head>
+<body>
+    <h1>Joining Poll: {{ poll.title }}</h1>
+    <div id="question-area">
+        <!-- Questions will be displayed here -->
+    </div>
+    <div id="answer-area">
+        <!-- Answer input will go here -->
+    </div>
+    <div id="message"></div>
+
+    <script>
+        const socket = io();
+        let currentQuestionId = null;
+        let currentQuestionType = null;
+
+        socket.on('connect', () => {
+            console.log('Connected to server, joining poll');
+            socket.emit('join_poll', { entry_code: '{{ poll.entry_code }}' });
+        });
+
+        socket.on('poll_joined', (data) => {
+            console.log('Joined poll:', data.poll_id);
+            // Update UI to indicate successful join
+        });
+
+        socket.on('new_question', (data) => {
+            currentQuestionId = data.question_id;
+            currentQuestionType = data.question_type;
+            document.getElementById('question-area').textContent = data.question_text;
+
+             // Clear previous answer area
+            const answerArea = document.getElementById('answer-area');
+            answerArea.innerHTML = '';
+
+            if (data.question_type === 'open') {
+                answerArea.innerHTML = `
+                    <input type="text" id="answer-input" placeholder="Your answer">
+                    <button id="submit-button">Submit</button>
+                `;
+                document.getElementById('submit-button').addEventListener('click', () => {
+                  const answer = document.getElementById('answer-input').value;
+                  socket.emit('submit_answer', { question_id: currentQuestionId, answer: answer });
+                  answerArea.innerHTML = "<p>Answer submitted!</p>";
+                });
+            } else if (data.question_type === 'closed') {
+                const optionsList = document.createElement('ul');
+                data.options.forEach(option => {
+                    const listItem = document.createElement('li');
+                    const radioInput = document.createElement('input');
+                    radioInput.type = 'radio';
+                    radioInput.name = 'answer'; // Important: same name for all options
+                    radioInput.value = option.id;
+                    radioInput.id = `option-${option.id}`;
+
+                    const label = document.createElement('label');
+                    label.textContent = option.text;
+                    label.htmlFor = `option-${option.id}`;
+
+                    listItem.appendChild(radioInput);
+                    listItem.appendChild(label);
+                    optionsList.appendChild(listItem);
+                });
+
+                const submitButton = document.createElement('button');
+                submitButton.textContent = 'Submit';
+                submitButton.addEventListener('click', () => {
+                    const selectedOption = document.querySelector('input[name="answer"]:checked');
+                    if (selectedOption) {
+                         socket.emit('submit_answer', { question_id: currentQuestionId, option_id: parseInt(selectedOption.value) });
+                         answerArea.innerHTML = "<p>Answer submitted!</p>";
+                    } else {
+                         alert('Please select an option.'); // Basic validation
+                    }
+                });
+
+                answerArea.appendChild(optionsList);
+                answerArea.appendChild(submitButton);
+            }
+        });
+
+
+
+        socket.on('question_closed', (data) => {
+          document.getElementById('answer-area').innerHTML = "<p>Question closed. Waiting for next question...</p>";
+        });
+
+        socket.on('poll_ended', () => {
+            document.getElementById('question-area').textContent = 'Poll has ended!';
+            document.getElementById('answer-area').innerHTML = '';  // Clear answer area
+        });
+
+        socket.on('error', (data) => {
+          document.getElementById('message').textContent = data.message;
+        });
+    </script>
+</body>
+</html>

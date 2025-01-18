@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Host Poll</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"></script>
+    <style>
+      /* Basic styling - improve as needed */
+      #participants { margin-bottom: 20px; }
+      #current-question { font-weight: bold; margin-bottom: 10px; }
+      button { padding: 10px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Hosting Poll: {{ poll.title }}</h1>
+    <p>Entry Code: <strong>{{ poll.entry_code }}</strong></p>
+
+    <div id="participants">
+        <h2>Participants:</h2>
+        <ul id="participant-list"></ul>
+    </div>
+
+    <button id="start-button">Start Poll</button>
+    <button id="next-button" disabled>Next Question</button>
+    <button id="close-button" disabled>Close Question</button>
+    <div id="current-question"></div>
+    <a href="{{ url_for('results', poll_id=poll.id) }}">View Results</a>
+
+    <script>
+      const socket = io();
+      const startButton = document.getElementById('start-button');
+      const nextButton = document.getElementById('next-button');
+      const closeButton = document.getElementById('close-button');
+      const currentQuestionDiv = document.getElementById('current-question');
+      const participantList = document.getElementById('participant-list');
+
+      socket.on('connect', () => {
+          console.log('Connected to server');
+      });
+
+      socket.on('participant_joined', (data) => {
+          const listItem = document.createElement('li');
+          listItem.textContent = `Participant ${data.sid} joined`;
+          participantList.appendChild(listItem);
+      });
+
+      startButton.addEventListener('click', () => {
+          socket.emit('start_poll', { poll_id: {{ poll.id }} });
+          startButton.disabled = true;
+      });
+
+      socket.on('poll_started', () => {
+        nextButton.disabled = false;
+      });
+
+      nextButton.addEventListener('click', () => {
+          socket.emit('next_question', { poll_id: {{ poll.id }} });
+          closeButton.disabled = false;
+          nextButton.disabled = true;
+      });
+
+      socket.on('new_question', (data) => {
+          currentQuestionDiv.textContent = data.question_text;
+           closeButton.disabled = false;
+           nextButton.disabled=true;
+
+      });
+
+      closeButton.addEventListener('click', () => {
+          socket.emit('close_question', { poll_id: {{ poll.id }} });
+           closeButton.disabled = true;
+           nextButton.disabled = false;
+      });
+
+        socket.on('question_closed', (data) => {
+          console.log(`Question ${data.question_id} closed.`);
+        });
+
+      socket.on('poll_ended', () => {
+          currentQuestionDiv.textContent = "Poll ended";
+          nextButton.disabled = true;
+          closeButton.disabled=true;
+      });
+
+      socket.on('error', (data) => {
+        alert(data.message); // Or display the error more gracefully
+      });
+    </script>
+</body>
+</html>

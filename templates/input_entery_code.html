@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Подключение к опросу</title>
+    <meta property="og:title" content="nametest - Raw Vague Dragonfly" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta property="twitter:card" content="summary_large_image" />
+
+    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='nametest.css') }}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <div class="nametest-container">
+        <div class="nametest-desktop10448104">
+            <img alt="paper4910" src="{{ url_for('static', filename='public/external/paper4910-d5io-1900w.png') }}" class="nametest-paper" />
+            <img alt="Rectangle264910" src="{{ url_for('static', filename='public/external/rectangle264910-f2fp-1800w.png') }}" class="nametest-rectangle26" />
+            <div class="nametest-wf-container1">
+                <div class="nametest-wf-container2">
+                    <form id="join-poll-form" method="POST">
+                        <div class="nametest-wf-input-field">
+                            <div class="nametest-label-stack">
+                                <span class="nametest-text1">Введите код</span>
+                            </div>
+                            <input type="text" id="entry-code" name="entry_code" placeholder="Код опроса" class="nametest-text-input" required />
+                        </div>
+                        <button type="submit" class="nametest-wf-button1">
+                            <span class="nametest-text2">Подключиться</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="nametest-wf-container3">
+                <span class="nametest-text3">QUIZUP</span>
+                <span class="nametest-text4">Ксения Завьялова</span>
+                <button class="nametest-wf-button2">
+                    <a href="{{ url_for('input_name_quiz') }}">
+                        <span class="nametest-text5">Создать опрос</span>
+                    </a>
+                </button>
+                <button class="nametest-wf-button3">
+                    <a href="{{ url_for('input_entery_code') }}">
+                        <span class="nametest-text6">Ввести код</span>
+                    </a>
+                </button>
+                <button class="nametest-wf-button4">
+                    <a href="{{ url_for('logout') }}">
+                        <span class="nametest-text7">Выйти</span>
+                    </a>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+        const pollId = "{{ session.get('poll_id') }}";
+        const entryCodeForSocket = "{{ session.get('poll_entry_code') }}";
+
+        socket.on('poll_started', (data) => {
+          if (data.poll_id == {{ session.get('poll_id', '') }}) { // Or however you identify the relevant poll
+            // Update the UI to show the first question or refresh the page
+            window.location.href = '/participant_show_question'; // Or use AJAX to update content without a full refresh
+          }
+        });
+
+
+        document.getElementById('join-poll-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const entryCode = document.getElementById('entry-code').value.trim();
+
+            if (!entryCode) {
+                alert('Пожалуйста, введите код.');
+                return;
+            }
+
+            // Submit the form data to the server
+            this.submit();
+        });
+
+        // Подключаемся к комнате SocketIO after successful code entry (or page load if already entered)
+        socket.on('connect', () => {
+            if (entryCodeForSocket) { // Use entryCodeForSocket here
+                socket.emit('join_poll', { entry_code: entryCodeForSocket });
+            }
+        });
+
+        socket.on('error', (message) => {
+            alert(message);
+        });
+
+        socket.on('poll_joined', (data) => {
+            console.log('Poll joined:', data);
+            // Optionally redirect to the participant view immediately after joining
+            // window.location.href = "{{ url_for('participant_show_question') }}";
+        });
+
+        socket.on('question_changed', (data) => {
+            if (pollId && data.poll_id === parseInt(pollId)) {
+                window.location.reload();
+            }
+        });
+
+        socket.on('poll_ended', (data) => {
+            if (pollId && data.poll_id) { // Ensure data.poll_id exists
+                window.location.href = `/results/${data.poll_id}`; // Construct URL directly in JS
+            }
+        });
+    </script>
+</body>
+</html>

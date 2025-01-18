@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ question.text }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='input_base_question.css') }}" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <div class="input-base-question-container1">
+        <div class="input-base-question-desktop10448104">
+            <!-- Фон и верхняя панель -->
+            <img alt="Background Image" src="{{ url_for('static', filename='/public/external/rectangle264036-mock-3000w.png') }}" class="input-base-question-rectangle26"/>
+            <div class="input-base-question-wf-title-bar">
+                <span class="input-base-question-text3">QUIZUP</span>
+            </div>
+
+            <!-- Отображение вопроса -->
+            <div class="input-base-question-wf-text-area1">
+                <div class="input-base-question-frame-text-area-base1">
+                    <div class="input-base-question-label-stack">
+                        <span class="input-base-question-text4">Вопрос {{ poll.current_question_index + 1 }}</span>
+                    </div>
+                    <div class="input-base-question-text-input1">
+                        <div class="question-text">{{ question.text }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Контейнер для вариантов ответов -->
+            <div class="input-base-question-container2" id="answerOptionsContainer">
+                {% for option in question.options %}
+                    <div class="input-base-question-group" data-answer="{{ loop.index }}">
+                        <div class="input-base-question-wf-text-area option-container {% if not is_host %}clickable{% endif %}"
+                             onclick="{% if not is_host %}selectAnswer({{ option.id }}){% endif %}">
+                            <div class="input-base-question-frame-text-area-base">
+                                <div class="input-base-question-text-input">
+                                    <div class="option-text">{{ option.text }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% if not is_host %}
+                        <div class="option-indicator" id="indicator-{{ option.id }}">
+                            <img alt="Check Icon" src="{{ url_for('static', filename='/public/external/iconcheckcircle4632-a6q.svg') }}"
+                                 class="input-base-question-iconcheckcircle" style="display: none;">
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Кнопки управления -->
+            {% if is_host %}
+            <div class="input-base-question-buttons-top">
+                <button onclick="nextQuestion()" class="input-base-question-wf-button-next">Следующий вопрос</button>
+                <button onclick="endPoll()" class="input-base-question-wf-button-start">Завершить опрос</button>
+            </div>
+            {% else %}
+            <div class="input-base-question-buttons-top">
+                <button onclick="submitAnswer()" class="input-base-question-wf-button-next" id="submitButton">Ответить</button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+        let selectedOptionId = null;
+
+        function selectAnswer(optionId) {
+            // Сброс всех индикаторов
+            document.querySelectorAll('.option-indicator img').forEach(img => {
+                img.style.display = 'none';
+            });
+
+            // Показ индикатора для выбранного варианта
+            const indicator = document.querySelector(`#indicator-${optionId} img`);
+            if (indicator) {
+                indicator.style.display = 'block';
+            }
+
+            selectedOptionId = optionId;
+        }
+
+        function submitAnswer() {
+            if (selectedOptionId === null) {
+                alert('Пожалуйста, выберите вариант ответа');
+                return;
+            }
+
+            socket.emit('submit_answer', {
+                question_id: {{ question.id }},
+                option_id: selectedOptionId
+            });
+
+            // Отключаем кнопку после отправки
+            document.getElementById('submitButton').disabled = true;
+        }
+
+        {% if is_host %}
+        function nextQuestion() {
+            window.location.href = "{{ url_for('next_question', poll_id=poll.id) }}";
+        }
+
+        function endPoll() {
+            window.location.href = "{{ url_for('results', poll_id=poll.id) }}";
+        }
+        {% endif %}
+
+        // Обработка событий Socket.IO
+        socket.on('connect', () => {
+            const pollId = {{ session.get('poll_id', 'null') }};
+            if (pollId) {
+                socket.emit('join_poll', { entry_code: {{ session.get('poll_entry_code', 'null') }} });
+            }
+        });
+
+        socket.on('error', (message) => {
+            alert(message.message);  // Доступ к свойству 'message' внутри объекта
+        });
+
+        socket.on('poll_joined', (data) => {
+            console.log('Poll joined:', data);
+        });
+
+        socket.on('question_changed', function(data) {
+            if (data.poll_id === {{ poll.id }}) {
+                window.location.reload();
+            }
+        });
+
+        socket.on('poll_ended', function(data) {
+            if (data.poll_id === {{ poll.id }}) {
+                window.location.href = "{{ url_for('results', poll_id=poll.id) }}";
+            }
+        });
+    </script>
+</body>
+</html>

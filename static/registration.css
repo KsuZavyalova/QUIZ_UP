@@ -1,0 +1,467 @@
+.registration-container {
+  width: 100%;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+}
+.registration-desktop10448104 {
+  width: 100%;
+  height: 982px;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  box-sizing: content-box;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-radius: 8px;
+  justify-content: center;
+  background-color: var(--dl-color-wfbase-white);
+}
+.registration-paper {
+  top: 0px;
+  left: 0px;
+  width: 1600px;
+  height: 1031px;
+  position: absolute;
+}
+.registration-blue-back {
+  top: -289px;
+  left: -27px;
+  width: 2576px;
+  height: 1417px;
+  position: absolute;
+}
+.registration-image {
+  top: 179px;
+  left: 0px;
+  right: 0px;
+  width: 295px;
+  height: 101px;
+  margin: auto;
+  position: absolute;
+  align-self: center;
+  object-fit: cover;
+}
+.registration-beautiful-frame {
+  top: 178px;
+  left: 0px;
+  right: 0px;
+  width: 498px;
+  height: 725px;
+  margin: auto;
+  position: absolute;
+}
+.registration-wf-input-field-login {
+  gap: 8px;
+  top: 372px;
+  left: 0px;
+  right: 0px;
+  width: 320px;
+  margin: auto;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: center;
+}
+.registration-label-stack1 {
+  gap: 10px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.registration-text1 {
+  color: rgb(249, 217, 163);
+  height: auto;
+  flex-grow: 1;
+  font-size: 24px;
+  font-style: SemiBold;
+  text-align: left;
+  font-family: "Playfair Display";
+  font-weight: 600;
+  line-height: 16px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.registration-text-input1 {
+  gap: 10px;
+  width: 320px;
+  height: 30px;
+  display: flex;
+  padding: 12px;
+  position: relative;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(203, 210, 224, 1);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 6px;
+  justify-content: center;
+  background-color: var(--dl-color-wfbase-white);
+}
+.registration-wf-button-in {
+  gap: 8px;
+  top: 680px;
+  left: 0px;
+  right: 0px;
+  width: 252px;
+  margin: auto;
+  display: flex;
+  padding: 16px 24px;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  align-items: center;
+  border-radius: 6px;
+  justify-content: center;
+  background-color: rgba(249, 217, 163, 1);
+}
+.registration-text2 {
+  color: rgb(26, 25, 78);
+  height: auto;
+  font-size: 18px;
+  font-style: Bold;
+  text-align: left;
+  font-family: "Playfair Display";
+  font-weight: 700;
+  line-height: 24px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.registration-wf-button-reg {
+  gap: 8px;
+  left: 0px;
+  right: 0px;
+  width: 365px;
+  bottom: 117px;
+  margin: auto;
+  display: flex;
+  padding: 16px 24px;
+  overflow: hidden;
+  position: absolute;
+  align-items: center;
+  border-radius: 6px;
+  padding-bottom: 16px 24px;
+  justify-content: center;
+}
+.registration-text3 {
+  color: rgb(249, 217, 163);
+  height: auto;
+  font-size: 20px;
+  font-style: Bold;
+  text-align: center;
+  font-family: Playfair Display;
+  font-weight: 700;
+  line-height: 24px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.registration-wf-input-field-password {
+  gap: 8px;
+  top: 462px;
+  left: 0px;
+  right: 0px;
+  width: 320px;
+  margin: auto;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.registration-label-stack2 {
+  gap: 10px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.registration-text8 {
+  color: rgba(249, 217, 163, 1);
+  height: auto;
+  flex-grow: 1;
+  font-size: 24px;
+  font-style: SemiBold;
+  text-align: left;
+  font-family: Playfair Display;
+  font-weight: 600;
+  line-height: 16px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.registration-text-input2 {
+  gap: 10px;
+  width: 320px;
+  height: 30px;
+  display: flex;
+  padding: 12px;
+  position: relative;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(203, 210, 224, 1);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 6px;
+  background-color: var(--dl-color-wfbase-white);
+}
+.registration-wf-input-field-pass-aprove {
+  gap: 8px;
+  top: 552px;
+  left: 0px;
+  right: 0px;
+  width: 320px;
+  margin: auto;
+  display: flex;
+  position: absolute;
+  align-items: flex-start;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.registration-label-stack3 {
+  gap: 10px;
+  display: flex;
+  align-self: stretch;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+.registration-text9 {
+  color: rgba(249, 217, 163, 1);
+  height: auto;
+  flex-grow: 1;
+  font-size: 24px;
+  font-style: SemiBold;
+  text-align: left;
+  font-family: Playfair Display;
+  font-weight: 600;
+  line-height: 16px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.registration-text-input3 {
+  gap: 10px;
+  width: 320px;
+  height: 30px;
+  display: flex;
+  padding: 12px;
+  position: relative;
+  align-self: stretch;
+  align-items: center;
+  flex-shrink: 0;
+  border-color: rgba(203, 210, 224, 1);
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 6px;
+  background-color: var(--dl-color-wfbase-white);
+}
+.registration-spark-up {
+  top: 362.4974670410156px;
+  left: 0px;
+  right: 495px;
+  width: 70px;
+  height: 70px;
+  margin: auto;
+  position: absolute;
+}
+.registration-spark-low {
+  left: 300px;
+  right: 0px;
+  width: 50px;
+  bottom: 56px;
+  height: 50px;
+  margin: auto;
+  position: absolute;
+}
+@media(max-width: 1200px) {
+  .registration-wf-input-field-login {
+    left: 0px;
+    right: 0px;
+    margin: auto;
+  }
+  .registration-text3 {
+    font-size: 20px;
+  }
+  .registration-text9 {
+    color: rgb(249, 217, 163);
+    font-size: 24px;
+    font-family: Playfair Display;
+    font-weight: 600;
+    line-height: 16px;
+    text-decoration: none;
+  }
+}
+@media(max-width: 991px) {
+  .registration-image {
+    width: 295px;
+  }
+  .registration-wf-button-in {
+    left: 0px;
+    right: 0px;
+    margin: auto;
+  }
+  .registration-spark-up {
+    left: 0px;
+    right: 495px;
+    margin: auto;
+  }
+}
+@media(max-width: 767px) {
+  .registration-image {
+    top: 179px;
+    left: 0px;
+    right: 0px;
+    width: 295px;
+    height: 101px;
+    margin: auto;
+  }
+  .registration-spark-up {
+    left: 0px;
+    right: 495px;
+    margin: auto;
+  }
+}
+@media(max-width: 479px) {
+  .registration-image {
+    top: 321px;
+    left: 0px;
+    right: 0px;
+    width: 227px;
+    height: 84px;
+    margin: auto;
+    position: absolute;
+    align-self: flex-start;
+    padding-top: 0px;
+  }
+  .registration-beautiful-frame {
+    width: 291px;
+    height: 715px;
+  }
+  .registration-wf-input-field-login {
+    top: 400px;
+    left: 0px;
+    right: 0px;
+    width: auto;
+    margin: auto;
+  }
+  .registration-label-stack1 {
+    align-self: center;
+  }
+  .registration-text1 {
+    color: rgb(249, 217, 163);
+    font-size: 18px;
+  }
+  .registration-text-input1 {
+    width: 230px;
+    align-self: center;
+  }
+  .registration-wf-button-in {
+    top: 635px;
+    left: 0px;
+    right: 0px;
+    width: 204px;
+    height: var(--dl-size-size-xsmall);
+    margin: auto;
+  }
+  .registration-text2 {
+    text-align: center;
+  }
+  .registration-wf-button-reg {
+    top: 430px;
+    left: 0px;
+    right: 0px;
+    width: 201px;
+    bottom: 0px;
+    height: 55px;
+    margin: auto;
+    text-align: center;
+  }
+  .registration-text3 {
+    font-size: 16px;
+  }
+  .registration-wf-input-field-password {
+    top: 475px;
+    left: 0px;
+    margin: auto;
+  }
+  .registration-label-stack2 {
+    align-self: center;
+  }
+  .registration-text8 {
+    color: rgb(249, 217, 163);
+    font-size: 18px;
+  }
+  .registration-text-input2 {
+    width: 230px;
+    align-self: center;
+  }
+  .registration-wf-input-field-pass-aprove {
+    top: 550px;
+    left: 0px;
+    right: 0px;
+    margin: auto;
+  }
+  .registration-label-stack3 {
+    align-self: center;
+  }
+  .registration-text9 {
+    color: rgb(249, 217, 163);
+    font-size: 18px;
+  }
+  .registration-text-input3 {
+    width: 230px;
+    align-self: center;
+  }
+  .registration-spark-up {
+    top: 412px;
+    left: 0nits;
+    right: 288px;
+    width: 30px;
+    height: 30px;
+    margin: auto;
+  }
+  .registration-spark-low {
+    top: 512px;
+    left: 130px;
+    right: 0px;
+    width: 40px;
+    bottom: 0px;
+    height: 40px;
+    margin: auto;
+  }
+}
+
+.registration-desktop10448104 .flashes { /* Добавляем родительский элемент */
+  list-style: none;
+  padding: 0;
+  width: 320px; /* Ширина как у полей ввода */
+  margin: 10px auto; /* Отступы сверху и снизу, выравнивание по центру */
+  position: absolute; /* Абсолютное позиционирование */
+  top: 300px; /* Позиция сверху */
+  left: 0;
+  right: 0; /* Чтобы выровнять по центру относительно родителя */
+  z-index: 10; /* Чтобы был поверх других элементов, если необходимо */
+}
+
+.registration-desktop10448104 .flashes li { /* Добавляем родительский элемент */
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+.registration-desktop10448104 .flashes li.success { /* Добавляем родительский элемент */
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+.registration-desktop10448104 .flashes li.danger { /* Добавляем родительский элемент */
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
