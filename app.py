@@ -1,3 +1,5 @@
+from select import poll
+
 from flask import Flask, request, render_template, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import true
@@ -214,21 +216,28 @@ def edit_question(question_id):
     if question.type == 'open':
         form = OpenQuestionForm(obj=question)
     else:
-        form = ClosedQuestionForm()
+        # Передаём напрямую объект question, чтобы поле text заполнилось
+        form = ClosedQuestionForm(obj=question)
 
-        # Динамически добавляем недостающие поля в форму
+        # Динамически добавляем недостающие поля для вариантов
+        # Динамически добавляем поля, если их меньше чем вариантов ответа
         while len(form.options.entries) < len(question.options):
             form.options.append_entry()
             form.correct_answers.append_entry()
 
-        # Заполнение полей формы данными из базы
+        # Проверяем, чтобы количество опций не превышало границы
+        entries_count = len(form.correct_answers.entries)
         for i, option in enumerate(question.options):
-            form.options[i].data = option.text
-            form.correct_answers[i].data = option.correct
+            if i < entries_count:
+                form.options[i].data = option.text
+                form.correct_answers[i].data = option.correct
+            else:
+                break  # Избежать выхода за границы списка
 
-        # Если в БД больше вариантов, чем в форме — показываем предупреждение
-        if len(question.options) > len(form.options):
-            flash('Некоторые варианты ответов не отображаются, так как превышен лимит формы.', 'warning')
+        if len(question.options) > form.options.max_entries:
+            flash(f'Вопрос имеет {len(question.options)} вариантов, '
+                  f'но можно отредактировать только первые {form.options.max_entries}.',
+                  'warning')
 
     if form.validate_on_submit():
         try:
@@ -248,6 +257,7 @@ def edit_question(question_id):
             db.session.rollback()
             flash(f'Ошибка при обновлении вопроса: {str(e)}', 'danger')
 
+    # Выбор шаблона на основе типа вопроса
     if question.type == 'closed':
         template_name = 'input_base_question.html'
     else:

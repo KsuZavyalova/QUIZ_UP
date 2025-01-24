@@ -25,7 +25,9 @@ class OpenQuestionForm(FlaskForm):
 
 class ClosedQuestionForm(FlaskForm):
     text = TextAreaField('Введите вопрос здесь', validators=[DataRequired()]) # Using TextAreaField for question text
-    options = FieldList(StringField('Вариант ответа', validators=[DataRequired()]), min_entries=2) # FieldList for options, at least 2 entries
-    correct_answers = FieldList(BooleanField('Правильный ответ'), min_entries=2) # FieldList for correct answers, matching options
+    options = FieldList(StringField('Вариант ответа', validators=[DataRequired()]),
+                        min_entries=2, max_entries=10)
+    correct_answers = FieldList(BooleanField('Правильный ответ'),
+                                min_entries=2, max_entries=10)
     next = SubmitField('Далее')
     finish = SubmitField('Завершить')

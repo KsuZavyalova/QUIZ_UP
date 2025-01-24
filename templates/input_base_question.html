@@ -17,7 +17,12 @@
             </div>
 
             <!-- Форма для добавления закрытого вопроса -->
-            <form method="POST" action="{{ url_for('input_base_question') }}">
+            <form method="POST"
+                  {% if edit_mode %}
+                      action="{{ url_for('edit_question', question_id=question.id) }}"
+                  {% else %}
+                      action="{{ url_for('input_base_question') }}"
+                  {% endif %}>
                 {{ form.hidden_tag() }}
 
                 <!-- Поле для текста вопроса -->
