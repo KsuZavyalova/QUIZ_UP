@@ -211,15 +211,24 @@ def edit_question(question_id):
     if poll.user_id != current_user.id:
         return "Unauthorized", 403
 
-    # В зависимости от типа вопроса используем соответствующую форму
     if question.type == 'open':
         form = OpenQuestionForm(obj=question)
     else:
-        form = ClosedQuestionForm(obj=question)
-        # Заполняем варианты ответов
+        form = ClosedQuestionForm()
+
+        # Динамически добавляем недостающие поля в форму
+        while len(form.options.entries) < len(question.options):
+            form.options.append_entry()
+            form.correct_answers.append_entry()
+
+        # Заполнение полей формы данными из базы
         for i, option in enumerate(question.options):
-            form.options[i].text.data = option.text
+            form.options[i].data = option.text
             form.correct_answers[i].data = option.correct
+
+        # Если в БД больше вариантов, чем в форме — показываем предупреждение
+        if len(question.options) > len(form.options):
+            flash('Некоторые варианты ответов не отображаются, так как превышен лимит формы.', 'warning')
 
     if form.validate_on_submit():
         try:
@@ -228,7 +237,7 @@ def edit_question(question_id):
             if question.type == 'closed':
                 # Обновляем варианты ответов
                 for i, option in enumerate(question.options):
-                    option.text = form.options[i].text.data
+                    option.text = form.options[i].data
                     option.correct = form.correct_answers[i].data
 
             db.session.commit()
@@ -239,7 +248,12 @@ def edit_question(question_id):
             db.session.rollback()
             flash(f'Ошибка при обновлении вопроса: {str(e)}', 'danger')
 
-    return render_template(f'input_{question.type}_question.html',
+    if question.type == 'closed':
+        template_name = 'input_base_question.html'
+    else:
+        template_name = f'input_{question.type}_question.html'
+
+    return render_template(template_name,
                            form=form,
                            edit_mode=True,
                            question=question)
