@@ -1,0 +1,140 @@
+.edit-survey-container {
+  width: 100%;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center; /* Центрирование по вертикали и горизонтали */
+  flex-direction: column;
+  background-image: url('../static/public/external/rectangle264036-mock-3000w.png'); /* Путь к изображению */
+  background-size: cover; /* Растянуть изображение на весь экран */
+  background-position: center; /* Центрировать изображение */
+  background-repeat: no-repeat; /* Запретить повторение изображения */
+  background-color: var(--dl-color-wfbase-white); /* Цвет фона на случай, если изображение не загрузится */
+}
+
+.edit-survey-desktop {
+  width: 90%; /* Ширина контейнера */
+  max-width: 1200px; /* Максимальная ширина */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px;
+  border-radius: 8px;
+  background-color: rgba(255, 246, 233, 0.9); /* Прозрачный фон для лучшей читаемости */
+}
+
+.edit-survey-title {
+  color: rgba(26, 25, 78, 0.8);
+  font-size: 30px;
+  font-style: Bold;
+  text-align: center; /* Центрирование текста */
+  font-family: Playfair Display;
+  font-weight: 700;
+  line-height: 24px;
+  margin-bottom: 32px; /* Отступ снизу */
+}
+
+.edit-survey-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 32px;
+  border-radius: 8px;
+  background-color: rgba(255, 246, 233, 0.9); /* Прозрачный фон для лучшей читаемости */
+  overflow-y: auto;
+}
+
+.question-item {
+  gap: 16px;
+  width: 100%;
+  min-height: 148px;
+  display: flex;
+  padding: 32px;
+  align-self: stretch;
+  align-items: flex-start;
+  border-radius: 8px;
+  flex-direction: column;
+  background-color: rgba(255, 246, 233, 1);
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.question-text {
+  color: rgba(26, 25, 78, 1);
+  width: 100%;
+  font-size: 24px;
+  font-style: Bold;
+  text-align: left;
+  font-family: Playfair Display;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.options-list {
+  padding-left: 24px;
+  margin: 8px 0;
+}
+
+.option-item {
+  color: rgba(26, 25, 78, 0.8);
+  font-size: 18px;
+  font-family: Inter;
+  margin: 4px 0;
+}
+
+.controls-container {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.edit-survey-button {
+  gap: 8px;
+  display: flex;
+  padding: 12px 20px;
+  align-items: center;
+  border-radius: 6px;
+  justify-content: center;
+  background-color: rgba(249, 217, 163, 1);
+  transition: all 0.3s ease;
+}
+
+.edit-survey-button.delete {
+  background-color: #ff6b6b;
+}
+
+.edit-survey-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+@media(max-width: 767px) {
+  .edit-survey-desktop {
+    width: 95%; /* Уменьшаем ширину на маленьких экранах */
+    padding: 16px;
+  }
+
+  .edit-survey-title {
+    font-size: 24px; /* Уменьшаем размер шрифта */
+  }
+
+  .edit-survey-list {
+    padding: 16px;
+  }
+
+  .question-item {
+    padding: 24px;
+    min-height: 120px;
+  }
+
+  .controls-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .edit-survey-button {
+    width: 100%;
+  }
+}

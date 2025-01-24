@@ -65,9 +65,9 @@
       <a href="{{ url_for('input_open_question') }}" class="choose-question-wf-button1">
         <span class="choose-question-text1">Открытый</span>
       </a>
-      <button class="choose-question-wf-button2">
-        <span class="choose-question-text2">Comming soon</span>
-      </button>
+      <a href="{{ url_for('edit_survey', poll_id=session['current_poll_id']) }}" class="choose-question-wf-button2">
+        <span class="choose-question-text2">Редактировать опрос</span>
+      </a>
       <a href="{{ url_for('input_base_question') }}" class="choose-question-wf-button3">
         <span class="choose-question-text3">Возможность выбора</span>
       </a>

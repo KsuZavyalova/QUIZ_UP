@@ -79,6 +79,11 @@
             <a href="{{ url_for('show_qr', poll_id=poll.id) }}" class="page-wf-button4">
               <span class="page-text8">Начать опрос</span>
             </a>
+              <a href="{{ url_for('edit_survey', poll_id=poll.id) }}"
+                   class="page-wf-button4"
+                   style="background-color: #1A194EFF;">
+                    <span class="page-text9">Редактировать</span>
+                </a>
           </div>
           {% endfor %}
         </div>

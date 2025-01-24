@@ -149,7 +149,100 @@ def choose_question():
     if not poll_id:
         flash('Сначала создайте опрос.', 'warning')
         return redirect(url_for('input_name_quiz'))
-    return render_template('choose_question.html')
+    return render_template('choose_question.html', poll_id=poll_id)
+
+
+# Добавьте этот маршрут в ваш Flask-код
+@app.route('/edit_survey/<int:poll_id>')
+@login_required
+def edit_survey(poll_id):
+    """Страница редактирования опроса со списком всех вопросов"""
+    poll = Poll.query.get_or_404(poll_id)
+
+    # Проверка прав доступа
+    if poll.user_id != current_user.id:
+        return "Unauthorized", 403
+
+    # Получаем вопросы отсортированные по порядку
+    questions = poll.questions.order_by(Question.order).all()
+
+    return render_template('edit_survey.html',
+                           poll=poll,
+                           questions=questions)
+
+
+# Добавьте эти маршруты в ваш Flask-код
+@app.route('/delete_question/<int:question_id>', methods=['POST'])
+@login_required
+def delete_question(question_id):
+    """Удаление вопроса"""
+    question = Question.query.get_or_404(question_id)
+    poll = question.poll
+
+    # Проверка прав доступа
+    if poll.user_id != current_user.id:
+        return "Unauthorized", 403
+
+    try:
+        # Удаляем связанные ответы и варианты
+        UserAnswer.query.filter_by(question_id=question.id).delete()
+        if question.type == 'closed':
+            Option.query.filter_by(question_id=question.id).delete()
+
+        # Удаляем сам вопрос
+        db.session.delete(question)
+        db.session.commit()
+        flash('Вопрос успешно удален', 'success')
+    except Exception as e:
+        db.session.rollback()
+        flash(f'Ошибка при удалении вопроса: {str(e)}', 'danger')
+
+    return redirect(url_for('edit_survey', poll_id=poll.id))
+
+
+@app.route('/edit_question/<int:question_id>', methods=['GET', 'POST'])
+@login_required
+def edit_question(question_id):
+    """Редактирование существующего вопроса"""
+    question = Question.query.get_or_404(question_id)
+    poll = question.poll
+
+    # Проверка прав доступа
+    if poll.user_id != current_user.id:
+        return "Unauthorized", 403
+
+    # В зависимости от типа вопроса используем соответствующую форму
+    if question.type == 'open':
+        form = OpenQuestionForm(obj=question)
+    else:
+        form = ClosedQuestionForm(obj=question)
+        # Заполняем варианты ответов
+        for i, option in enumerate(question.options):
+            form.options[i].text.data = option.text
+            form.correct_answers[i].data = option.correct
+
+    if form.validate_on_submit():
+        try:
+            question.text = form.text.data
+
+            if question.type == 'closed':
+                # Обновляем варианты ответов
+                for i, option in enumerate(question.options):
+                    option.text = form.options[i].text.data
+                    option.correct = form.correct_answers[i].data
+
+            db.session.commit()
+            flash('Вопрос успешно обновлен', 'success')
+            return redirect(url_for('edit_survey', poll_id=poll.id))
+
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Ошибка при обновлении вопроса: {str(e)}', 'danger')
+
+    return render_template(f'input_{question.type}_question.html',
+                           form=form,
+                           edit_mode=True,
+                           question=question)
 
 @app.route('/input_open_question', methods=['GET', 'POST'])
 @login_required

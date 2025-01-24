@@ -162,10 +162,9 @@
   top: 187px;
   left: 329px;
   width: 1139px;
-  height: 748px;
+  height: 748px; /* Фиксированная высота */
   display: flex;
   padding: 32px;
-  overflow: hidden;
   position: absolute;
   align-items: center;
   flex-shrink: 0;
@@ -173,18 +172,19 @@
   flex-direction: column;
   justify-content: flex-start;
   background-color: rgba(255, 246, 233, 1);
-  overflow-y: auto; /* Добавляем вертикальную прокрутку */
+  overflow-y: auto; /* Вертикальная прокрутка */
+  overflow-x: hidden; /* Скрываем горизонтальную прокрутку */
 }
 .page-wf-container3 {
   gap: 16px;
-  flex: 1;
-  height: 148px;
+  width: 100%; /* Занимаем всю ширину контейнера */
+  min-height: 148px; /* Минимальная высота */
   display: flex;
   padding: 32px;
   overflow: hidden;
   align-self: stretch;
   align-items: flex-start;
-  flex-shrink: 0;
+  flex-shrink: 0; /* Запрещаем сжатие */
   border-radius: 8px;
   flex-direction: column;
   background-color: rgba(255, 246, 233, 1);
@@ -214,6 +214,18 @@
 }
 .page-text8 {
   color: rgba(26, 25, 78, 1);
+  height: auto;
+  font-size: 18px;
+  font-style: Bold;
+  text-align: left;
+  font-family: Playfair Display;
+  font-weight: 700;
+  line-height: 24px;
+  font-stretch: normal;
+  text-decoration: none;
+}
+.page-text9 {
+  color: rgba(255, 246, 233, 1);
   height: auto;
   font-size: 18px;
   font-style: Bold;

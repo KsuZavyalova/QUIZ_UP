@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактирование опроса - {{ poll.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='edit_survey.css') }}">
+</head>
+<body>
+    <div class="edit-survey-container">
+        <div class="edit-survey-desktop">
+            <span class="edit-survey-title">Редактирование опроса: {{ poll.title }}</span>
+
+            <div class="edit-survey-list">
+                <!-- Кнопки управления -->
+                <div class="controls-container">
+                    <a href="{{ url_for('choose_question') }}" class="edit-survey-button">
+                        Добавить новый вопрос
+                    </a>
+                </div>
+
+                <!-- Список вопросов -->
+                {% for question in questions %}
+                <div class="question-item">
+                    <h3 class="question-text">Вопрос {{ loop.index }} ({{ question.type }})</h3>
+                    <p class="question-text">{{ question.text }}</p>
+
+                    {% if question.type == 'closed' %}
+                    <ul class="options-list">
+                        {% for option in question.options %}
+                        <li class="option-item">
+                            {{ option.text }}
+                            {% if option.correct %}<span class="correct-mark">✓</span>{% endif %}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+
+                    <div class="controls-container">
+                        <a href="{{ url_for('edit_question', question_id=question.id) }}"
+                           class="edit-survey-button">
+                            Редактировать
+                        </a>
+                        <form method="POST"
+                              action="{{ url_for('delete_question', question_id=question.id) }}">
+                            <button type="submit" class="edit-survey-button delete">
+                                Удалить
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                <div class="question-item">
+                    <p class="question-text">Нет вопросов в опросе</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
