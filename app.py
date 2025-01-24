@@ -144,6 +144,7 @@ def input_name_quiz():
                 flash(f'Ошибка при создании опроса: {str(e)}', 'danger')
     return render_template('input_name_quiz.html', form=form)
 
+
 @app.route('/choose_question')
 @login_required
 def choose_question():
@@ -151,27 +152,31 @@ def choose_question():
     if not poll_id:
         flash('Сначала создайте опрос.', 'warning')
         return redirect(url_for('input_name_quiz'))
-    return render_template('choose_question.html', poll_id=poll_id)
+
+    # Добавляем параметр для определения режима редактирования
+    edit_mode = request.args.get('edit_mode', False)
+
+    return render_template('choose_question.html',
+                           poll_id=poll_id,
+                           edit_mode=edit_mode)
 
 
-# Добавьте этот маршрут в ваш Flask-код
 @app.route('/edit_survey/<int:poll_id>')
 @login_required
 def edit_survey(poll_id):
-    """Страница редактирования опроса со списком всех вопросов"""
     poll = Poll.query.get_or_404(poll_id)
 
-    # Проверка прав доступа
     if poll.user_id != current_user.id:
         return "Unauthorized", 403
 
-    # Получаем вопросы отсортированные по порядку
+    # Сохраняем poll_id в сессии для добавления новых вопросов
+    session['current_poll_id'] = poll_id
+
     questions = poll.questions.order_by(Question.order).all()
 
     return render_template('edit_survey.html',
                            poll=poll,
                            questions=questions)
-
 
 # Добавьте эти маршруты в ваш Flask-код
 @app.route('/delete_question/<int:question_id>', methods=['POST'])
