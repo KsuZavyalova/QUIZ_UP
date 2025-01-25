@@ -17,60 +17,65 @@
             </div>
 
             <!-- Форма для добавления закрытого вопроса -->
-            <form method="POST"
-                  {% if edit_mode %}
-                      action="{{ url_for('edit_question', question_id=question.id) }}"
-                  {% else %}
-                      action="{{ url_for('input_base_question') }}"
-                  {% endif %}>
-                {{ form.hidden_tag() }}
+ <form method="POST" action="{{ url_for('edit_question', question_id=question.id) if edit_mode else url_for('input_base_question') }}">
+    {{ form.hidden_tag() }}
 
-                <!-- Поле для текста вопроса -->
-                <div class="input-base-question-wf-text-area1">
-                    <div class="input-base-question-frame-text-area-base1">
-                        <div class="input-base-question-label-stack">
-                            <span class="input-base-question-text4">Введите вопрос здесь</span>
-                        </div>
-                        <div class="input-base-question-text-input1">
-                            {{ form.text(class="input-base-question-textarea", placeholder="Введите текст вопроса") }}
+    <!-- Поле для текста вопроса -->
+    <div class="input-base-question-wf-text-area1">
+        <div class="input-base-question-frame-text-area-base1">
+            <div class="input-base-question-label-stack">
+                <span class="input-base-question-text4">Введите вопрос здесь</span>
+            </div>
+            <div class="input-base-question-text-input1">
+                {{ form.text(class="input-base-question-textarea", placeholder="Введите текст вопроса") }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Контейнер для вариантов ответов -->
+    <div class="input-base-question-container2" id="answerOptionsContainer">
+        {% for option_field in form.options %}
+            {% set i = loop.index0 %}
+            {% set correct_field = form.correct_answers[i] %}
+            <div class="input-base-question-group" data-answer="{{ i + 1 }}">
+                <div class="input-base-question-wf-text-area">
+                    <div class="input-base-question-frame-text-area-base">
+                        <div class="input-base-question-text-input">
+                            <input type="text"
+                                   name="options-{{ i }}"
+                                   class="input-base-question-textarea answer-textarea"
+                                   placeholder="Введите вариант ответа {{ i + 1 }}"
+                                   value="{{ option_field.data or '' }}">
                         </div>
                     </div>
                 </div>
 
-                <!-- Контейнер для вариантов ответов -->
-                <div class="input-base-question-container2" id="answerOptionsContainer">
-                    {% for field_option in form.options %}
-                        {% set i = loop.index0 %}
-                        {% set field_correct = form.correct_answers[i] %}
+                <!-- Чекбокс для правильного ответа -->
+                <input type="checkbox"
+                       name="correct_answers-{{ i }}"
+                       style="display: none;"
+                       {% if correct_field.data %}checked{% endif %}>
 
-                        <div class="input-base-question-group" data-answer="{{ i + 1 }}">
-                            <!-- Обёртка для текстового поля, как в JS -->
-                            <div class="input-base-question-wf-text-area">
-                                <div class="input-base-question-frame-text-area-base">
-                                    <div class="input-base-question-text-input">
-                                        {{ field_option(class="input-base-question-textarea answer-textarea",
-                                                        placeholder="Введите вариант ответа " ~ (i + 1)) }}
-                                    </div>
-                                </div>
-                            </div>
+                <!-- Кнопка выбора правильного ответа -->
+                <button type="button"
+                        class="input-base-question-wf-icon-button select-answer {% if correct_field.data %}selected{% endif %}"
+                        data-option-index="{{ i }}">
+                    <img alt="Check Icon"
+                         src="../static/public/external/iconcheckcircle4632-a6q.svg"
+                         class="input-base-question-iconcheckcircle">
+                </button>
 
-                            <!-- Скрытый чекбокс -->
-                            <div style="display: none;">
-                                {{ field_correct(id="correct_answer_" ~ i) }}
-                            </div>
-
-                            <!-- Кнопка-иконка для переключения правильного ответа -->
-                            <button type="button" class="input-base-question-wf-icon-button select-answer" data-option-index="{{ i }}">
-                                <img alt="Check Icon" src="../static/public/external/iconcheckcircle4632-a6q.svg" class="input-base-question-iconcheckcircle">
-                            </button>
-
-                           <!-- Кнопка удаления текущего варианта ответа -->
-                           <button type="button" class="input-base-question-wf-icon-button remove-option-button" data-option-index="{{ i }}">
-                                <img alt="Delete Icon" src="../static/public/external/icon2i411-0rm9.svg" class="input-base-question-icontrashcan">
-                            </button>
-                        </div>
-                    {% endfor %}
-                </div>
+     <!-- Кнопка удаления -->
+            <button type="button"
+                    class="input-base-question-wf-icon-button remove-option-button"
+                    data-option-index="{{ i }}">
+                <img alt="Delete Icon"
+                     src="../static/public/external/icon2i411-0rm9.svg"
+                     class="input-base-question-icontrashcan">
+            </button>
+        </div>
+    {% endfor %}
+</div>
 
                 <!-- Кнопки "Добавить вариант" -->
                  <div class="input-base-question-buttons">
@@ -206,6 +211,55 @@
               }
             });
         });
+        document.addEventListener('DOMContentLoaded', function() {
+    // Обработка выбора правильного ответа
+    document.querySelectorAll('.select-answer').forEach(button => {
+        button.addEventListener('click', function() {
+            const index = this.dataset.optionIndex;
+            const checkbox = document.getElementById(`correct_answers-${index}`);
+
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+                this.classList.toggle('selected', checkbox.checked);
+            }
+        });
+    });
+
+    // Подсветка уже выбранных правильных ответов при загрузке
+    document.querySelectorAll('input[type="checkbox"][name^="correct_answers-"]').forEach(checkbox => {
+        if (checkbox.checked) {
+            const index = checkbox.id.split('-')[1];
+            const button = document.querySelector(`.select-answer[data-option-index="${index}"]`);
+            if (button) {
+                button.classList.add('selected');
+            }
+        }
+    });
+});
+        document.addEventListener('DOMContentLoaded', function() {
+    // Обработка выбора правильного ответа
+    document.querySelectorAll('.select-answer').forEach(button => {
+        button.addEventListener('click', function() {
+            const index = this.dataset.optionIndex;
+            const checkbox = document.querySelector(`input[name="correct_answers-${index}"]`);
+
+            if (checkbox) {
+                checkbox.checked = !checkbox.checked;
+                this.classList.toggle('selected', checkbox.checked);
+            }
+        });
+    });
+
+    // Обработка удаления варианта ответа
+    document.querySelectorAll('.remove-option-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const group = this.closest('.input-base-question-group');
+            if (group) {
+                group.remove();
+            }
+        });
+    });
+});
         </script>
 </body>
 </html>

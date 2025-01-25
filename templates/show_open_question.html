@@ -64,19 +64,31 @@
                 </div>
             </div>
 
-            <!-- Форма для отправки данных (для участника)-->
-            {% if not is_host %}
-            <div id="answer-form">
-                <div class="input-open-question-wf-text-area">
-                    <textarea id="answer" placeholder="Введите ваш ответ" rows="4" cols="50"></textarea>
-                </div>
-                <div class="input-base-question-buttons-top">
-                    <button type="button" onclick="submitAnswer()" class="input-base-question-wf-button-next" id="submitButton">
-                        Ответить
-                    </button>
-                </div>
+<!-- Форма для отправки данных (для участника)-->
+{% if not is_host %}
+<div id="answer-form">
+    <div class="input-open-question-wf-text-area">
+        <div class="input-open-question-frame-text-area-base">
+            <div class="input-open-question-label-stack">
+                <span class="input-open-question-text4">Введите ваш ответ</span>
             </div>
-            {% endif %}
+            <div class="input-base-question-text-input1">
+                <textarea id="answer"
+                         class="input-open-question-textarea"
+                         placeholder="Введите ваш ответ"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="input-base-question-buttons-top">
+        <button type="button"
+                onclick="submitAnswer()"
+                class="input-base-question-wf-button-next"
+                id="submitButton">
+            <span class="input-base-question-text1">Ответить</span>
+        </button>
+    </div>
+</div>
+{% endif %}
 
             <!-- Кнопки управления (для ведущего)-->
             {% if is_host %}

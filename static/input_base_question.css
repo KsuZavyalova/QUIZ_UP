@@ -43,6 +43,9 @@
     padding: 16px 24px;
     cursor: pointer;
 }
+.select-answer.selected .input-base-question-iconcheckcircle {
+    filter: invert(45%) sepia(90%) saturate(2599%) hue-rotate(208deg) brightness(101%) contrast(102%);
+}
 
 .input-base-question-wf-button-start {
     background-color: rgba(249, 217, 163, 1);

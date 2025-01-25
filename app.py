@@ -210,64 +210,65 @@ def delete_question(question_id):
 @app.route('/edit_question/<int:question_id>', methods=['GET', 'POST'])
 @login_required
 def edit_question(question_id):
-    """Редактирование существующего вопроса"""
     question = Question.query.get_or_404(question_id)
     poll = question.poll
 
-    # Проверка прав доступа
     if poll.user_id != current_user.id:
         return "Unauthorized", 403
 
-    if question.type == 'open':
-        form = OpenQuestionForm(obj=question)
-    else:
-        # Передаём напрямую объект question, чтобы поле text заполнилось
-        form = ClosedQuestionForm(obj=question)
+    if request.method == 'POST':
+        # Обработка POST-запроса
+        question.text = request.form.get('text', '')
 
-        # Динамически добавляем недостающие поля для вариантов
-        # Динамически добавляем поля, если их меньше чем вариантов ответа
-        while len(form.options.entries) < len(question.options):
-            form.options.append_entry()
-            form.correct_answers.append_entry()
+        if question.type == 'closed':
+            # Удаляем существующие варианты ответов
+            Option.query.filter_by(question_id=question.id).delete()
 
-        # Проверяем, чтобы количество опций не превышало границы
-        entries_count = len(form.correct_answers.entries)
-        for i, option in enumerate(question.options):
-            if i < entries_count:
-                form.options[i].data = option.text
-                form.correct_answers[i].data = option.correct
-            else:
-                break  # Избежать выхода за границы списка
+            # Добавляем новые варианты
+            for i in range(10):  # максимум 10 вариантов
+                option_text = request.form.get(f'options-{i}')
+                is_correct = request.form.get(f'correct_answers-{i}') is not None
 
-        if len(question.options) > form.options.max_entries:
-            flash(f'Вопрос имеет {len(question.options)} вариантов, '
-                  f'но можно отредактировать только первые {form.options.max_entries}.',
-                  'warning')
+                if option_text and option_text.strip():
+                    new_option = Option(
+                        text=option_text.strip(),
+                        question_id=question.id,
+                        correct=is_correct
+                    )
+                    db.session.add(new_option)
 
-    if form.validate_on_submit():
         try:
-            question.text = form.text.data
-
-            if question.type == 'closed':
-                # Обновляем варианты ответов
-                for i, option in enumerate(question.options):
-                    option.text = form.options[i].data
-                    option.correct = form.correct_answers[i].data
-
             db.session.commit()
             flash('Вопрос успешно обновлен', 'success')
             return redirect(url_for('edit_survey', poll_id=poll.id))
-
         except Exception as e:
             db.session.rollback()
             flash(f'Ошибка при обновлении вопроса: {str(e)}', 'danger')
 
-    # Выбор шаблона на основе типа вопроса
-    if question.type == 'closed':
-        template_name = 'input_base_question.html'
+    # Обработка GET-запроса
+    if question.type == 'open':
+        form = OpenQuestionForm(obj=question)
     else:
-        template_name = f'input_{question.type}_question.html'
+        form = ClosedQuestionForm()
+        form.text.data = question.text
 
+        # Очищаем существующие поля
+        while len(form.options.entries) > 0:
+            form.options.pop_entry()
+        while len(form.correct_answers.entries) > 0:
+            form.correct_answers.pop_entry()
+
+        # Добавляем поля для существующих вариантов
+        for option in question.options:
+            form.options.append_entry()
+            form.correct_answers.append_entry()
+
+        # Заполняем данные
+        for i, option in enumerate(question.options):
+            form.options[i].data = option.text
+            form.correct_answers[i].data = option.correct
+
+    template_name = 'input_base_question.html' if question.type == 'closed' else f'input_{question.type}_question.html'
     return render_template(template_name,
                            form=form,
                            edit_mode=True,
