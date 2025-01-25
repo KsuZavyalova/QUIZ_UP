@@ -185,3 +185,8 @@ pip install eventlet
 python -m flask run --with-threads --host=0.0.0.0
 ```
 ---
+
+# Форма обратной связи 
+Мы ценим ваше мнение и всегда стремимся улучшать наш сервис. Если у вас есть вопросы, предложения или вы столкнулись с проблемами, пожалуйста, заполните эту форму обратной связи.
+
+https://docs.google.com/forms/d/e/1FAIpQLScwR2BVs5gVW4zKYAW9IvDxl_LjvF1AW2uEMzvkgxlXNc9jYg/viewform?usp=dialog
